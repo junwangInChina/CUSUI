@@ -26,6 +26,7 @@
 #import <CUSUI/CUSDrawBoard.h>
 #import <CUSUI/CUSPopView.h>
 #import <CUSUI/CUSAssistiveTouch.h>
+#import <CUSUI/CUSDropMenu.h>
 
 #import <CUSUI/UILabel+Attribute.h>
 #import <CUSUI/UITextView+Attribute.h>

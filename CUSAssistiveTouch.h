@@ -12,6 +12,11 @@
  *  扩展了菜单功能，支持传入多个图标时，自动生成菜单
  *  增加了隐藏功能，可支持任意的展示隐藏
  *
+ *  获取点击菜单下标
+ *  NSDictionary *dic = [notification userInfo];
+ *  NSLog(@"点击：%@",dic[TAP_INDEX]);
+ *
+ *  ps:与CUSPopView.h控件冲突，只能弹出一个，会影响另一个的效果，无意中发现，暂时没有时间修改
  */
 
 #import <Foundation/Foundation.h>

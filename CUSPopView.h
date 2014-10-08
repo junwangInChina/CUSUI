@@ -11,6 +11,8 @@
  *  支持传入Title数组、Icon数组
  *  支持定制线条颜色，箭头颜色
  *  支持自动适配方向，避免出界
+ *
+ *  ps:与CUSAssistiveTouch.h控件冲突，只能弹出一个，会影响另一个的效果，无意中发现，暂时没有时间修改
  */
 
 #import <UIKit/UIKit.h>
