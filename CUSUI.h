@@ -33,6 +33,7 @@
 #import <CUSUI/UITextField+Attribute.h>
 #import <CUSUI/UINavigationController+BackGesture.h>
 #import <CUSUI/UIColor+HexColor.h>
+#import <CUSUI/NSDate+Time.h>
 
 @interface CUSUI : NSObject
 
