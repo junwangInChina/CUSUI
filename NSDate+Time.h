@@ -6,6 +6,11 @@
 //  Copyright (c) 2014年 wangjun. All rights reserved.
 //
 
+/**
+ *  收集整理的一些NSDate的扩展方法，比较多
+ *
+ */
+
 #import <Foundation/Foundation.h>
 
 @interface NSDate (Time)
