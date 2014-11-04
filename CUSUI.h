@@ -30,6 +30,7 @@
 #import <CUSUI/CUSUtil.h>
 #import <CUSUI/CUSDropDownItem.h>
 #import <CUSUI/CUSDropDownMenu.h>
+#import <CUSUI/CUSPulsingHaloLayer.h>
 
 #import <CUSUI/UILabel+Attribute.h>
 #import <CUSUI/UITextView+Attribute.h>
