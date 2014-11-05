@@ -67,23 +67,85 @@ typedef NS_ENUM(NSInteger, CUSDropDownMenuRotateType)
 
 @interface CUSDropDownMenu : UIControl
 
-@property (nonatomic, strong) CUSDropDownItem *menuItem;                // 菜单主Item，收起时展示的那个
-@property (nonatomic, copy) NSArray *dropDownItems;                     // 所有展开的Item数组
-@property (nonatomic, assign) CGSize itemSize;                          // Item的Size
-@property (nonatomic, assign) CGFloat paddingLeft;                      // Item中，控件坐偏移量
+/**
+ *  菜单主Item，收起时展示的那个
+ */
+@property (nonatomic, strong) CUSDropDownItem *menuItem;
 
-@property (nonatomic, assign) CGFloat animationDuration;                // 动画时间
-@property (nonatomic, assign) UIViewAnimationOptions animationOption;   // 动画
-@property (nonatomic, assign) CGFloat itemAnimationDelay;               // 多个item动画执行延迟时间
-@property (nonatomic, assign) CUSDropDownMenuOpenType openType;         // 展开后类型
-@property (nonatomic, assign) CUSDropDownMenuRotateType rotateType;     // 展开时，翻转类型
-@property (nonatomic, assign) CGFloat slidingInOffset;                  // 滑动偏移量
+/**
+ *  Item的Size
+ */
+@property (nonatomic, assign) CGSize itemSize;
+
+/**
+ *  Item中，控件坐偏移量 Default: 5pt
+ */
+@property (nonatomic, assign) CGFloat paddingLeft;
+
+/**
+ *  所有展开的Item数组
+ */
+@property (nonatomic, copy) NSArray *dropDownItems;
+
+/**
+ *  动画时间 Default: 0.3s
+ */
+@property (nonatomic, assign) CGFloat animationDuration;
+
+/**
+ *  动画Options Default: UIViewAnimationOptionCurveEaseOut |UIViewAnimationOptionBeginFromCurrentState
+ */
+@property (nonatomic, assign) UIViewAnimationOptions animationOption;
+
+/**
+ *  多个item动画执行延迟时间 Default: 0s
+ */
+@property (nonatomic, assign) CGFloat itemAnimationDelay;
+
+/**
+ *  展开后类型 Default: CUSDropDownMenuOpenTypeNormal
+ */
+@property (nonatomic, assign) CUSDropDownMenuOpenType openType;
+
+/**
+ *  展开时，翻转类型 Default: CUSDropDownMenuRotateTypeNormal
+ */
+@property (nonatomic, assign) CUSDropDownMenuRotateType rotateType;
+
+/**
+ *  滑动偏移量 Default: -1
+ */
+@property (nonatomic, assign) CGFloat slidingInOffset;
+
+/**
+ *  每个Item之间的间距 Default: 5pt
+ */
 @property (nonatomic, assign) CGFloat gutterY;                          // Item之间的间距
-@property (nonatomic, assign) CGFloat alphaOnFold;                      // 收起时，褶皱透明度
-@property (nonatomic, assign, getter = isExpanding) BOOL expanding;     // 是否已经展开
-@property (nonatomic, assign, getter = shouldFlipWhenToggleView) BOOL flipWhenToggleView;   // 展开or收起时，是否翻转
 
-@property (nonatomic, assign) id<CUSDropDownMenuDelegate> delegate;     // 委托
+/**
+ *  Item收起时，褶皱透明度 Default: －1
+ */
+@property (nonatomic, assign) CGFloat alphaOnFold;                      // 收起时，褶皱透明度
+
+/**
+ *  是否已经展开 Default: NO
+ */
+@property (nonatomic, assign, getter = isExpanding) BOOL expanding;     // 是否已经展开
+
+/**
+ *  Item，展开or收起时，是否翻转 Default: NO
+ */
+@property (nonatomic, assign, getter = shouldFlipWhenToggleView) BOOL flipWhenToggleView;
+
+/**
+ *  Item，展开or收起时，是否使用弹跳动画，7.0之后才支持 Default: YES
+ */
+@property (nonatomic, assign, getter = shouldSpringAnimation) BOOL springAnimation;
+
+/**
+ *  委托
+ */
+@property (nonatomic, assign) id<CUSDropDownMenuDelegate> delegate;   
 
 /**
  *  重载菜单

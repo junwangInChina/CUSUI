@@ -8,6 +8,12 @@
 
 #import "CUSDropDownMenu.h"
 
+#ifdef NSFoundationVersionNumber_iOS_6_1
+#define IOS7_OR_GREATER (floor(NSFoundationVersionNumber) > NSFoundationVersionNumber_iOS_6_1)
+#else
+#define IOS7_OR_GREATER NO
+#endif
+
 @interface CUSDropDownMenu()
 
 @property (nonatomic, assign) CGFloat offsetX;
@@ -90,8 +96,9 @@
     self.rotateType = CUSDropDownMenuRotateTypeNormal;
     self.slidingInOffset = -1;
     self.alphaOnFold = -1;
-    self.gutterY = 0;
+    self.gutterY = 5;
     self.flipWhenToggleView = NO;
+    self.springAnimation = YES;
     self.expanding = NO;
     self.chooseItem = nil;
 }
@@ -350,14 +357,36 @@
             delay += self.itemAnimationDelay * (self.dropDownItems.count - i - 1);
         }
         
-        [UIView animateWithDuration:self.animationDuration delay:delay options:self.animationOption animations:^{
-            
-            [self setUpExpandItem:item];
-            
-        } completion:^(BOOL finished) {
-            
-            [self updateSelfFrame];
-        }];
+        if (self.springAnimation && IOS7_OR_GREATER)
+        {
+            [UIView animateWithDuration:self.animationDuration * 2
+                                  delay:delay
+                 usingSpringWithDamping:0.5
+                  initialSpringVelocity:2.0
+                                options:self.animationOption
+                             animations:^
+             {
+                 [self setUpExpandItem:item];
+             }
+                             completion:^(BOOL finished)
+             {
+                 [self updateSelfFrame];
+             }];
+        }
+        else
+        {
+            [UIView animateWithDuration:self.animationDuration
+                                  delay:delay
+                                options:self.animationOption
+                             animations:^
+             {
+                 [self setUpExpandItem:item];
+             }
+                             completion:^(BOOL finished)
+             {
+                 [self updateSelfFrame];
+             }];
+        }
     }
     
     // 已经展开
@@ -396,14 +425,36 @@
             delay += self.itemAnimationDelay * i;
         }
         
-        [UIView animateWithDuration:self.animationDuration delay:delay options:self.animationOption animations:^{
-            
-            [self setUpFoldItem:item];
-            
-        } completion:^(BOOL finished) {
-            
-            [self updateSelfFrame];
-        }];
+        if (self.springAnimation && IOS7_OR_GREATER)
+        {
+            [UIView animateWithDuration:self.animationDuration
+                                  delay:delay
+                 usingSpringWithDamping:1.0
+                  initialSpringVelocity:2.0
+                                options:self.animationOption
+                             animations:^
+             {
+                 [self setUpFoldItem:item];
+             }
+                             completion:^(BOOL finished)
+             {
+                 [self updateSelfFrame];
+             }];
+        }
+        else
+        {
+            [UIView animateWithDuration:self.animationDuration
+                                  delay:delay
+                                options:self.animationOption
+                             animations:^
+             {
+                 [self setUpFoldItem:item];
+             }
+                             completion:^(BOOL finished)
+             {
+                 [self updateSelfFrame];
+             }];
+        }
     }
 }
 
