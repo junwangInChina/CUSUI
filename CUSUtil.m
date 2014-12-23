@@ -83,4 +83,56 @@ static dispatch_once_t onceToken;
     return deviceName;
 }
 
+- (UIImage *)takeSnapshot
+{
+    UIView *screenView = [[UIScreen mainScreen] snapshotViewAfterScreenUpdates:YES];
+    return [self takeSnapshotOfView:screenView];
+}
+
+- (UIImage *)takeSnapshotOfView:(UIView *)view
+{
+    return [self takeSnapshotOfView:view InRect:CGRectZero];
+}
+
+- (UIImage *)takeSnapshotOfView:(UIView *)view InRect:(CGRect)rect
+{
+    if (view == nil)
+    {
+        view = [[UIScreen mainScreen] snapshotViewAfterScreenUpdates:YES];
+    }
+    
+    // 这段代码是为了兼容Retain屏
+    if(UIGraphicsBeginImageContextWithOptions != NULL)
+    {
+        UIGraphicsBeginImageContextWithOptions(view.frame.size, NO, 0.0);
+    }
+    else
+    {
+        UIGraphicsBeginImageContext(view.frame.size);
+    }
+    
+    // 这段代码是优化截屏效率，因为7.0以后，生成图片有新的方法了
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 7.0)
+    {
+        [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:YES];
+    }
+    else
+    {
+        [view.layer renderInContext:UIGraphicsGetCurrentContext()];
+    }
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    // 这段代码是区域截屏
+    if (!(rect.size.width == rect.size.height == CGRectZero.size.width))
+    {
+        CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage], rect);
+        image = [UIImage imageWithCGImage:imageRef];
+        CGImageRelease(imageRef);
+    }
+
+    return image;
+}
+
 @end
